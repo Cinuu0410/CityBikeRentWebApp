@@ -10,9 +10,6 @@ public class CityBikeRentApplication {
 		SpringApplication.run(CityBikeRentApplication.class, args);
 		System.out.println("hello");
 		System.out.println("hejka");
-		System.out.println("hejka");
-		System.out.println("heja");
-		System.out.println("heja");
 		System.out.println("CSS");
 	}
 
