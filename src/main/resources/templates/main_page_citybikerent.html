@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wypożyczalnia Rowerów</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/main_page_style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="top-bar">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        <h1>Wypożyczalnia Rowerów</h1>
+        <div class="auth-buttons">
+            <button type="button" class="btn btn-secondary register-button">Register</button>
+            <span class="spacing"></span>
+            <button type="button" class="btn btn-secondary login-button">Login</button>
+        </div>
+    </div>
+</header>
+
+<div class="toolbar">
+    <div class="toolbar-top"></div>
+</div>
+
+<nav class="side-menu">
+    <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-times"></i> Zamknij
+    </button>
+    <a href="#">Strona główna</a>
+    <a href="#">Oferta</a>
+    <a href="#">Cennik</a>
+    <a href="#">Kontakt</a>
+    <a href="#">Rezerwacje</a>
+    <a href="#">Regulamin</a>
+    <a href="#">O nas</a>
+</nav>
+
+<script>
+    function toggleMenu() {
+        var sideMenu = document.querySelector('.side-menu');
+        sideMenu.classList.toggle('open');
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
