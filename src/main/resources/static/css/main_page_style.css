@@ -52,22 +52,27 @@ h1 {
     width: 10px;
 }
 
-.toolbar {
+.toolbar-menu {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
     height: 10px;
-    background-color: #333; /* Kolor tła toolbaru */
+    background-color: #333;
+}
+
+.toolbar-login {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: #333;
 }
 
 .toolbar-top {
-    background-color: #333; /* Kolor tła górnego paska */
-    height: 10px; /* Dostosuj wysokość */
-}
-
-.close-menu-toggle {
-    margin: 0; /* Zresetowanie marginesu dla przycisku zamknij */
+    background-color: #333;
+    height: 10px;
 }
 
 .side-menu {
@@ -98,9 +103,30 @@ h1 {
     left: 0;
 }
 
-@media (max-width: 768px) {
-    .menu-toggle,
-    .close-menu-toggle {
-        display: block;
-    }
+.loginForm {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    padding-top: 25px;
+    padding-left: 20px;
+    transition: left 0.3s;
+    z-index: 2;
+}
+
+.loginForm a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.loginForm a:hover {
+    background-color: #333;
+}
+
+.loginForm.open {
+    left: 0;
 }

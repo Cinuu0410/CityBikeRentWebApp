@@ -19,35 +19,54 @@
         </button>
         <h1>Wypożyczalnia Rowerów</h1>
         <div class="auth-buttons">
-            <button type="button" class="btn btn-secondary register-button">Register</button>
+            <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Register</button>
             <span class="spacing"></span>
-            <button type="button" class="btn btn-secondary login-button">Login</button>
+            <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Login</button>
         </div>
     </div>
 </header>
 
-<div class="toolbar">
-    <div class="toolbar-top"></div>
+<div class="toolbar-menu">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+
+    <nav class="side-menu">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-times"></i> Zamknij
+        </button>
+        <a href="#">Strona główna</a>
+        <a href="#">Oferta</a>
+        <a href="#">Cennik</a>
+        <a href="#">Kontakt</a>
+        <a href="#">Rezerwacje</a>
+        <a href="#">Regulamin</a>
+        <a href="#">O nas</a>
+    </nav>
 </div>
 
-<nav class="side-menu">
-    <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
-        <i class="fas fa-times"></i> Zamknij
-    </button>
-    <a href="#">Strona główna</a>
-    <a href="#">Oferta</a>
-    <a href="#">Cennik</a>
-    <a href="#">Kontakt</a>
-    <a href="#">Rezerwacje</a>
-    <a href="#">Regulamin</a>
-    <a href="#">O nas</a>
-</nav>
+<div class="toolbar-login">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+
+
+</div>
+
 
 <script>
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
         sideMenu.classList.toggle('open');
     }
+
+    function redirectToLogin() {
+        window.location.href = "/login";
+    }
+    function redirectToRegister() {
+        window.location.href = "/register";
+    }
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

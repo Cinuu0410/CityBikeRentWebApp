@@ -12,5 +12,16 @@ public class BikeRentController {
     public String mainPage() {
         return "main_page_citybikerent";
     }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login_page";
+    }
+
+    @GetMapping("/register")
+    public String loginRegister() {
+        return "register_page";
+    }
 }
+
 
