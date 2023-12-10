@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
@@ -12,29 +12,29 @@
 
 <body>
 <div class="registration-container">
-    <h2>Registration</h2>
+    <h2>Rejestracja</h2>
     <form id="registrationForm">
         <div class="form-group">
-            <label for="username">Username:</label>
+            <label for="username">Nazwa użytkownika:</label>
             <input type="text" id="username" name="username" required>
         </div>
         <div class="form-group">
-            <label for="email">Email:</label>
+            <label for="email">E-mail:</label>
             <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
-            <label for="password">Password:</label>
+            <label for="password">Hasło:</label>
             <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <label for="confirmPassword">Confirm Password:</label>
+            <label for="confirmPassword">Powtórz hasło:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
         </div>
-        <button type="submit" id="registerButton" class="btn btn-primary">Register</button>
+        <button type="submit" id="registerButton" class="btn btn-primary">Zarejestruj się</button>
     </form>
     <div class="button-spacing"></div>
     <button type="button" id="gmailRegisterButton" onclick="registerWithGmail()" class="btn btn-danger">
-        <i class="fab fa-google"></i> Register with Gmail
+        <i class="fab fa-google"></i> Zarejestruj się przez Gmail
     </button>
 </div>
 
@@ -43,15 +43,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function registerWithGmail() {
-        // Dodaj logikę do obsługi rejestracji za pomocą Gmail
         alert("Registering with Gmail");
-        // Tutaj możesz dodać kod do uruchomienia procesu uwierzytelniania OAuth z Gmail
     }
 
     $(document).ready(function () {
         $("#registrationForm").submit(function (event) {
             event.preventDefault();
-            // Dodaj tutaj logikę obsługi standardowej rejestracji
             alert("Standard registration logic");
         });
     });
