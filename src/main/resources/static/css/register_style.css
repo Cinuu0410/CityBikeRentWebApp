@@ -1,5 +1,6 @@
 body, html {
     height: 100%;
+    width: 100%;
 }
 
 body {
@@ -14,7 +15,7 @@ body {
 }
 
 .registration-container {
-    width: 300px;
+    width: 500px;
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
@@ -32,22 +33,30 @@ body {
 
 .registration-container label {
     color: #333;
+    display: block;
 }
 
 .registration-container input[type="text"],
 .registration-container input[type="email"],
 .registration-container input[type="password"] {
-    width: 100%;
+    width: calc(100% - 22px); /* Nowa wartość szerokości z uwzględnieniem paddingu i obramowania */
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
 
+/* Dodano styl do osiągnięcia efektu obok siebie */
+.registration-container .in_row {
+    display: flex;
+    flex-direction: row; /* Ustawienie kierunku na kolumnę */
+    margin-bottom: 15px;
+}
+
 .registration-container button {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px; /* Dodany margines między przyciskami */
+    margin-bottom: 10px;
     background-color: #333;
     color: #fff;
     border: none;
@@ -58,6 +67,14 @@ body {
 .registration-container button:hover {
     background-color: #333;
 }
-#gmailRegisterButton{
+
+#gmailRegisterButton {
     background: #b51233;
 }
+.form-group{
+    width: 300px;
+    text-align: center;
+    display: block;
+
+}
+

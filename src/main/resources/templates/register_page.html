@@ -14,22 +14,26 @@
 <div class="registration-container">
     <h2>Rejestracja</h2>
     <form id="registrationForm">
+        <div class="in_row">
+            <label for="first_name">Imię: </label>
+            <input type="text" id="first_name" name="first_name" required>
+            <label for="last_name">Nazwisko:</label>
+            <input type="text" id="last_name" name="last_name" required>
+        </div>
         <div class="form-group">
-            <label for="username">Nazwa użytkownika:</label>
+            <label for="username">Nazwa użytkownika: </label>
             <input type="text" id="username" name="username" required>
         </div>
         <div class="form-group">
             <label for="email">E-mail:</label>
             <input type="email" id="email" name="email" required>
         </div>
+
         <div class="form-group">
             <label for="password">Hasło:</label>
             <input type="password" id="password" name="password" required>
         </div>
-        <div class="form-group">
-            <label for="confirmPassword">Powtórz hasło:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-        </div>
+
         <button type="submit" id="registerButton" class="btn btn-primary">Zarejestruj się</button>
     </form>
     <div class="button-spacing"></div>
