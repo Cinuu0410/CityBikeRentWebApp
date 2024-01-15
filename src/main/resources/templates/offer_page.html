@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wypożyczalnia rowerów miejskich</title>
+    <title>Rower Miejski do Wynajmu</title>
+    <link rel="stylesheet" th:href="@{/css/offer_style.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/main_page_style.css}">
 </head>
 
 <body>
@@ -51,28 +50,29 @@
     </div>
 </div>
 
-<div class = "photoBelowHeader">
-    <img th:src="@{/photos/rowery.jpg}" alt="rowery"/>
-</div>
-<div class = "description">
-    <br>
-    <p>Wypożyczenie roweru miejskiego jest łatwe i wygodne. Oto kroki, które musisz podjąć:</p>
 
-    <ol>
-        <li>Przejdź do najbliższej stacji wypożyczalni rowerów miejskich.</li>
-        <li>Znajdź dostępną stację z dostępnymi rowerami.</li>
-        <li>Przeczytaj instrukcje na automacie lub na stronie internetowej.</li>
-        <li>Zarejestruj się lub zaloguj, używając swoich danych logowania.</li>
-        <li>Wybierz rower, który chcesz wypożyczyć.</li>
-        <li>Podaj wymagane informacje.</li>
-        <li>Potwierdź wypożyczenie.</li>
-        <li>Wyjmij rower z danej stacji.</li>
-        <li>Po użyciu, zwróć rower do dowolnej dostępnej stacji.</li>
-        <li>Zakończ wypożyczenie, potwierdzając zwrot roweru.</li>
-    </ol>
 
-    <p>Wypożyczenie roweru miejskiego to świetny sposób na szybkie i ekologiczne poruszanie się po mieście!</p>
+<div class="offer">
+    <h1>Odkryj Miasto z Naszymi Rowerami Miejskimi!</h1>
+    <p>
+        Oferujemy wygodne i solidne <span class="highlight">rowery miejskie do wynajmu</span>, idealne do zwiedzania miasta w łatwy i ekologiczny sposób.
+        Z regulowaną wysokością siedzenia, koszem z przodu, i kompletnym systemem wypożyczania, nasze rowery zapewniają wygodną i przyjemną podróż dla każdego.
+    </p>
+
+    <h2>Dlaczego Wybrać Nasze Roweru Miejskie:</h2>
+
+    <ul>
+        <li><span class="highlight">Wygodna Jazda:</span> Ergonomiczna konstrukcja i regulowane siedzenie zapewniają komfortową podróż.</li>
+        <li><span class="highlight">Praktyczne Udogodnienia:</span> Z łatwością przewożysz swoje drobiazgi w naszych koszach lub uchwytach bagażowych.</li>
+        <li><span class="highlight">System Wypożyczania:</span> Prosty i wygodny system umożliwia łatwe wypożyczenie i zwrot rowerów.</li>
+        <li><span class="highlight">Ekologiczny Transport:</span> Odkrywaj miasto ekologicznie, rezygnując z samochodów na rzecz naszych rowerów.</li>
+    </ul>
+
+    <p>
+        Zaplanuj swoją podróż i odkrywaj uroki miasta z naszymi <span class="highlight">rowerami miejskimi</span>. Idealne dla turystów i mieszkańców!
+    </p>
 </div>
+
 
 <script>
     function toggleMenu() {
@@ -88,11 +88,9 @@
     }
 
 </script>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 
 </html>

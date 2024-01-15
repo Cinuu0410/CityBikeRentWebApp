@@ -22,6 +22,36 @@ public class BikeRentController {
     public String loginRegister() {
         return "register_page";
     }
+
+    @GetMapping("/offer")
+    public String offerPage(){
+        return "offer_page";
+    }
+
+    @GetMapping("/price_list")
+    public String priceListPage(){
+        return "price_list_page";
+    }
+
+    @GetMapping("/contact")
+    public String contactPage(){
+        return "contact_page";
+    }
+
+    @GetMapping("/rent")
+    public String rentPage(){
+        return "rent_page";
+    }
+
+    @GetMapping("/regulations")
+    public String regulationsPage(){
+        return "regulations_page";
+    }
+
+    @GetMapping("/about_us")
+    public String aboutUsPage(){
+        return "about_us_page";
+    }
 }
 
 
