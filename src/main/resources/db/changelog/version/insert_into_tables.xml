@@ -5,7 +5,7 @@
 
     <changeSet id="2" author="Marcin Zaczeniuk, Daniel Szałaj">
 
-        <insert tableName="all_users">
+        <insert tableName="app_user">
             <column name="first_name" value = "Marcin"/>
             <column name="last_name" value = "Zaczeniuk"/>
             <column name="email" value="admin"/>
@@ -13,7 +13,7 @@
             <column name="password" value="hasloo"/><!--            ${USER1_PASSWORD}-->
             <column name="role" value="SUPER_USER"/>
         </insert>
-        <insert tableName="all_users">
+        <insert tableName="app_user">
             <column name="first_name" value = "Daniel"/>
             <column name="last_name" value = "Szałaj"/>
             <column name="email" value="daniel@mail.com"/>
