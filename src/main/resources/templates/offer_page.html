@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rower Miejski do Wynajmu</title>
+    <title>Wypożyczalnia rowerów miejskich</title>
     <link rel="stylesheet" th:href="@{/css/offer_style.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
 <body>
+<div class = "test">
 
 <header>
     <div class="top-bar">
@@ -50,9 +50,8 @@
     </div>
 </div>
 
-
-
-<div class="offer">
+<div class = "flex-container">
+<div class="leftSide">
     <h1>Odkryj Miasto z Naszymi Rowerami Miejskimi!</h1>
     <p>
         Oferujemy wygodne i solidne <span class="highlight">rowery miejskie do wynajmu</span>, idealne do zwiedzania miasta w łatwy i ekologiczny sposób.
@@ -72,8 +71,10 @@
         Zaplanuj swoją podróż i odkrywaj uroki miasta z naszymi <span class="highlight">rowerami miejskimi</span>. Idealne dla turystów i mieszkańców!
     </p>
 </div>
-
-
+<div class = "rightSide">
+    <img th:src="@{/photos/bikesRightSide.jpg}" alt="bikes should be at right side"/>
+</div>
+</div>
 <script>
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
@@ -91,6 +92,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
 </body>
 
 </html>

@@ -1,10 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wypożyczalnia rowerów miejskich</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/price_list.css}">
 </head>
+
 <body>
+
+<header>
+    <div class="top-bar">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        <h1>Wypożyczalnia Rowerów</h1>
+        <div class="auth-buttons">
+            <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Rejestracja</button>
+            <span class="spacing"></span>
+            <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Logowanie</button>
+        </div>
+    </div>
+</header>
+
+<div class="toolbar-menu">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+
+    <nav class="side-menu">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-times"></i> Zamknij
+        </button>
+        <a href="/main_page_citybikerent">Strona główna</a>
+        <a href="/offer">Oferta</a>
+        <a href="/price_list">Cennik</a>
+        <a href="/contact">Kontakt</a>
+        <a href="/rent">Rezerwacje</a>
+        <a href="/regulations">Regulamin</a>
+        <a href="/about_us">O nas</a>
+    </nav>
+</div>
+
+<div class="toolbar-login">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="price-list">
+        <h2>Cennik dla Roweru Standardowego</h2>
+
+        <p class="validity-date">Ważny od 17.01.2024 r.</p>
+
+        <h3>Opłata za wypożyczenie</h3>
+
+        <table>
+            <tr>
+                <th>Przedział czasowy</th>
+                <th>Wartość brutto</th>
+            </tr>
+            <tr>
+                <td>od 1. do 15. minuty</td>
+                <td>bez opłat</td>
+            </tr>
+            <tr>
+                <td>od 16. do 60. minuty</td>
+                <td>1 zł</td>
+            </tr>
+            <tr>
+                <td>od 61. do 120 minuty</td>
+                <td>2 zł/godz.</td>
+            </tr>
+            <tr>
+                <td>od 121. do 180. minuty</td>
+                <td>3 zł/godz.</td>
+            </tr>
+            <tr>
+                <td>każda kolejna rozpoczęta godzina</td>
+                <td>4 zł/godz.</td>
+            </tr>
+        </table>
+
+        <p>Opłata za przekroczenie 12 godzin wypożyczenia: 200 zł</p>
+
+        <p>Opłata za kradzież, utratę lub zniszczenie roweru standardowego: 2000 zł</p>
+        <p>Opłata za kradzież, utratę lub zniszczenie roweru typu cargo (familijny/towarowy): 7000 zł</p>
+    </div>
+</div>
+
+
+<script>
+    function toggleMenu() {
+        var sideMenu = document.querySelector('.side-menu');
+        sideMenu.classList.toggle('open');
+    }
+
+    function redirectToLogin() {
+        window.location.href = "/login";
+    }
+    function redirectToRegister() {
+        window.location.href = "/register";
+    }
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
 
 </body>
 </html>

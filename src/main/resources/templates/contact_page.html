@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wypożyczalnia rowerów miejskich</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/contact.css}">
 </head>
+
 <body>
+
+<header>
+    <div class="top-bar">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        <h1>Wypożyczalnia Rowerów</h1>
+        <div class="auth-buttons">
+            <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Rejestracja</button>
+            <span class="spacing"></span>
+            <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Logowanie</button>
+        </div>
+    </div>
+</header>
+
+<div class="toolbar-menu">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+
+    <nav class="side-menu">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-times"></i> Zamknij
+        </button>
+        <a href="/main_page_citybikerent">Strona główna</a>
+        <a href="/offer">Oferta</a>
+        <a href="/price_list">Cennik</a>
+        <a href="/contact">Kontakt</a>
+        <a href="/rent">Rezerwacje</a>
+        <a href="/regulations">Regulamin</a>
+        <a href="/about_us">O nas</a>
+    </nav>
+</div>
+
+<div class="toolbar-login">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+</div>
+
+<section class="contact-section">
+    <div class="contact-container">
+        <h2>Kontakt</h2>
+        <p>Zapraszamy do kontaktu z nami. Jesteśmy dostępni dla Państwa od poniedziałku do piątku w godzinach 9:00 - 17:00.</p>
+        <p>Skontaktuj się z nami mailowo: <a href="mailto:info@wypozyczalniarowerow.pl">info@wypozyczalniarowerow.pl</a></p>
+        <p>Lub telefonicznie pod numerem: +48 123 456 789</p>
+    </div>
+</section>
+
+
+<script>
+    function toggleMenu() {
+        var sideMenu = document.querySelector('.side-menu');
+        sideMenu.classList.toggle('open');
+    }
+
+    function redirectToLogin() {
+        window.location.href = "/login";
+    }
+    function redirectToRegister() {
+        window.location.href = "/register";
+    }
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>
 </html>
