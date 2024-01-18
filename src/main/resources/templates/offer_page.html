@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-<div class = "test">
-
 <header>
     <div class="top-bar">
         <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
@@ -75,6 +73,11 @@
     <img th:src="@{/photos/bikesRightSide.jpg}" alt="bikes should be at right side"/>
 </div>
 </div>
+
+<footer>
+    <p>2024 City Bike Rent &copy;</p>
+</footer>
+
 <script>
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
@@ -92,7 +95,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</div>
 </body>
 
 </html>
