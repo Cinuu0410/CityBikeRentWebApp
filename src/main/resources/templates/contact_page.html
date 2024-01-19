@@ -17,11 +17,19 @@
         <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
             <i class="fas fa-bars"></i> Menu
         </button>
-        <h1>Wypożyczalnia Rowerów</h1>
+        <h1>
+            <span th:if="${loggedInUser}" th:text="${'Witaj, ' + loggedInUser.firstName + ' ' + loggedInUser.lastName + '!'}"></span>
+        </h1>
         <div class="auth-buttons">
-            <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Rejestracja</button>
-            <span class="spacing"></span>
-            <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Logowanie</button>
+            <!-- Sprawdź, czy użytkownik jest zalogowany i wyświetl odpowiedni przycisk -->
+            <span th:if="${loggedInUser}">
+                <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj</button>
+            </span>
+            <span th:unless="${loggedInUser}">
+                <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Rejestracja</button>
+                <span class="spacing"></span>
+                <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Logowanie</button>
+            </span>
         </div>
     </div>
 </header>
@@ -75,7 +83,15 @@
     }
 
 </script>
+<script>
+    function logout() {
+        // W tym miejscu możesz wykonać operacje związane z wylogowywaniem,
+        // np. zakończenie sesji, usuwanie atrybutu 'loggedInUser' itp.
 
+        // Następnie przekieruj użytkownika na stronę wylogowania
+        window.location.href = "/logout";  // Zakładając, że masz endpoint '/logout' do obsługi wylogowywania
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
