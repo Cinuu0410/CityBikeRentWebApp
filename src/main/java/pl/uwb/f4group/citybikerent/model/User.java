@@ -1,4 +1,4 @@
-package pl.uwb.f4group.citybikerent.Service;
+package pl.uwb.f4group.citybikerent.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

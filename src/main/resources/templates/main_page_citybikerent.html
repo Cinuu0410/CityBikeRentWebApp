@@ -36,8 +36,11 @@
             <span th:if="${loggedInUser}" th:text="${'Witaj, ' + loggedInUser.firstName + ' ' + loggedInUser.lastName + '!'}"></span>
         </h1>
         <div class="auth-buttons">
-            <!-- Sprawdź, czy użytkownik jest zalogowany i wyświetl odpowiedni przycisk -->
             <span th:if="${loggedInUser}">
+                <!-- Dodano sekcję dla informacji o portfelu -->
+                <div class="wallet-info">
+                    Portfel: <span th:text="${walletBalance}"></span> PLN
+                </div>
                 <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj</button>
             </span>
             <span th:unless="${loggedInUser}">
@@ -59,11 +62,15 @@
         </button>
         <a href="/main_page_citybikerent">Strona główna</a>
         <a href="/offer">Oferta</a>
+        <span th:if="${loggedInUser}">
+        <a href="/wallet">Portfel</a>
+    </span>
         <a href="/price_list">Cennik</a>
         <a href="/contact">Kontakt</a>
         <a href="/rent">Rezerwacje</a>
         <a href="/regulations">Regulamin</a>
         <a href="/about_us">O nas</a>
+        <
     </nav>
 </div>
 

@@ -9,4 +9,8 @@ public interface BikeService {
 
     List<Bike> getAllBikes();
 
+
+    Bike getBikeById(Long bikeId);
+
+    void saveBike(Bike bike);
 }

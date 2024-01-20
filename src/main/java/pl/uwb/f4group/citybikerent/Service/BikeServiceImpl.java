@@ -28,4 +28,12 @@ public class BikeServiceImpl implements BikeService {
         return bikeRepository.findAll();
     }
 
+    @Override
+    public Bike getBikeById(Long bikeId) {
+        return bikeRepository.findById(bikeId).orElse(null);
+    }
+    public void saveBike(Bike bike) {
+        bikeRepository.save(bike);
+    }
+
 }

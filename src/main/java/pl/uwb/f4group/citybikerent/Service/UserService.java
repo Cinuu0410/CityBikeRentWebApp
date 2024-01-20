@@ -3,6 +3,7 @@ package pl.uwb.f4group.citybikerent.Service;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.uwb.f4group.citybikerent.model.User;
 
 @Service
 public class UserService {
