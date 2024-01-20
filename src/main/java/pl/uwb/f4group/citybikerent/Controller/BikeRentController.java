@@ -1,8 +1,9 @@
-package pl.uwb.f4group.citybikerent.controller;
-import org.springframework.ui.Model;
+package pl.uwb.f4group.citybikerent.Controller;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.uwb.f4group.citybikerent.Service.User;
@@ -10,7 +11,6 @@ import pl.uwb.f4group.citybikerent.Service.User;
 @Controller
 @Slf4j
 public class BikeRentController {
-
 
     @GetMapping("/main_page_citybikerent")
     public String mainPage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
@@ -65,15 +65,15 @@ public class BikeRentController {
     }
 
     @GetMapping("/rent")
-    public String rentPage(Model model, HttpSession session){
+    public String rentPage(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUser") != null) {
-            // Pobierz informacje o zalogowanym użytkowniku
             User loggedInUser = (User) session.getAttribute("loggedInUser");
-            // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
         }
+
         return "rent_page";
     }
+
 
     @GetMapping("/regulations")
     public String regulationsPage(Model model, HttpSession session){
@@ -96,6 +96,7 @@ public class BikeRentController {
         }
         return "about_us_page";
     }
+
 }
 
 

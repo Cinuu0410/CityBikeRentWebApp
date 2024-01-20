@@ -118,58 +118,9 @@ h1 {
     left: 0;
 }
 
-.content {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.price-list {
-    text-align: left;
-}
-
-.price-list h2 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.validity-date {
-    color: #777;
-    margin-top: -10px;
-    margin-bottom: 20px;
-}
-
-.price-list h3 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #333;
-    color: #fff;
-}
-
-.content p {
-    color: #555;
-    margin-bottom: 10px;
-}
 
 footer{
-    margin-top: 300px;
+    margin-top: 580px;
     padding-top: 12px;
     width: 100%;
     height: 50px;
