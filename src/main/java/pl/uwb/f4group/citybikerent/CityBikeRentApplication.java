@@ -2,12 +2,13 @@ package pl.uwb.f4group.citybikerent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 public class CityBikeRentApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(CityBikeRentApplication.class, args);
 	}
-
 }

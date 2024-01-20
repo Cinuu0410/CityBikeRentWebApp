@@ -29,6 +29,21 @@
             </column>
         </createTable>
 
+        <createTable tableName="bike">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="number" type="INTEGER">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="brand" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="available" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
 
     </changeSet>
 </databaseChangeLog>

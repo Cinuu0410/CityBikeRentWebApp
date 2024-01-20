@@ -1,0 +1,12 @@
+package pl.uwb.f4group.citybikerent.Service;
+
+import pl.uwb.f4group.citybikerent.model.Bike;
+
+import java.util.List;
+
+public interface BikeService {
+    List<Bike> getAvailableBikes();
+
+    List<Bike> getAllBikes();
+
+}

@@ -1,11 +1,8 @@
 package pl.uwb.f4group.citybikerent.Service;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.ui.Model;
 
 @Service
 public class UserService {

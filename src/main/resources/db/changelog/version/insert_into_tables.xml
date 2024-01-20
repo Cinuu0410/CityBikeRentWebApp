@@ -22,6 +22,37 @@
             <column name="role" value="USER"/>
         </insert>
 
+        <!-- Dodanie danych do tabeli bike -->
+        <insert tableName="bike">
+            <column name="number" value="27012"/>
+            <column name="brand" value="Hercules"/>
+            <column name="available" value="true"/>
+        </insert>
+
+        <insert tableName="bike">
+            <column name="number" value="27768"/>
+            <column name="brand" value="Hercules"/>
+            <column name="available" value="false"/>
+        </insert>
+
+        <insert tableName="bike">
+            <column name="number" value="27521"/>
+            <column name="brand" value="Hercules"/>
+            <column name="available" value="true"/>
+        </insert>
+
+        <insert tableName="bike">
+            <column name="number" value="27321"/>
+            <column name="brand" value="Hercules"/>
+            <column name="available" value="true"/>
+        </insert>
+
+        <insert tableName="bike">
+            <column name="number" value="27667"/>
+            <column name="brand" value="Hercules"/>
+            <column name="available" value="false"/>
+        </insert>
+
 
     </changeSet>
 </databaseChangeLog>

@@ -59,15 +59,39 @@
     </div>
 </div>
 
-<div class="container mt-4">
-    <h2>Dostępne rowery</h2>
-    <ul>
-        <li th:each="bike : ${availableBikes}">
-            <span th:text="${'ID roweru: ' + bike.bikeId}"></span>
-            <span th:text="${', Dostępny: ' + bike.available}"></span>
-        </li>
-    </ul>
+<div class="bikesList">
+    <p>Lista rowerów:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>Numer roweru</th>
+            <th>Marka</th>
+            <th>Dostępność</th>
+            <th>Akcje</th> <!-- Nowa kolumna dla przycisku "Zarezerwuj" -->
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="bike : ${getAllBikes}">
+            <tr>
+                <td th:text="${bike.number}">Numer roweru</td>
+                <td th:text="${bike.brand}">Marka</td>
+                <td th:text="${bike.available ? 'Dostępny' : 'Niedostępny'}">Dostępność</td>
+                <!-- Dodanie warunku dla przycisku "Zarezerwuj" -->
+                <td th:if="${bike.available}">
+                    <!-- Dodanie warunku, aby przycisk był widoczny tylko dla zalogowanego użytkownika -->
+                    <button th:text="Zarezerwuj" th:if="${loggedInUser}" th:onclick="'redirectToRentPage(' + ${bike.id} + ')'" />
+                    <span th:unless="${loggedInUser}">Zaloguj się, aby zarezerwować</span>
+                </td>
+                <td th:unless="${bike.available}">Rower nie jest dostępny</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
 </div>
+
+
+
+
 
 <footer>
     <p>2024 City Bike Rent &copy;</p>
@@ -84,6 +108,10 @@
     }
     function redirectToRegister() {
         window.location.href = "/register";
+    }
+
+    function redirectToRentPage(bikeId) {
+        window.location.href = "/my_rents_page?bikeId=" + bikeId;
     }
 
 </script>
