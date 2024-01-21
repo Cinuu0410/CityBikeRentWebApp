@@ -27,6 +27,9 @@
             <column name="role" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="current_rental_number" type="INTEGER">
+                <constraints nullable="true" unique="true"/>
+            </column>
         </createTable>
 
         <createTable tableName="bike">

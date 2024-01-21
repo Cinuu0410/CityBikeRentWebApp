@@ -63,14 +63,16 @@
         <a href="/main_page_citybikerent">Strona główna</a>
         <a href="/offer">Oferta</a>
         <span th:if="${loggedInUser}">
-        <a href="/wallet">Portfel</a>
-    </span>
+            <a href="/wallet">Portfel</a>
+        </span>
         <a href="/price_list">Cennik</a>
         <a href="/contact">Kontakt</a>
         <a href="/rent">Rezerwacje</a>
+        <span th:if="${loggedInUser}">
+            <a href="/my_rents">Moje rezerwacje</a>
+        </span>
         <a href="/regulations">Regulamin</a>
         <a href="/about_us">O nas</a>
-        <
     </nav>
 </div>
 
@@ -151,8 +153,8 @@
     }).addTo(map);
 
     L.control.locate({
-        position: 'topright',  // Pozycja przycisku na mapie
-        drawMarker: true,       // Rysowanie markera na lokalizacji użytkownika
+        position: 'topright',
+        drawMarker: true,
         markerStyle: {
             weight: 2,
             opacity: 1,
@@ -163,17 +165,77 @@
             opacity: 0.5,
             fillOpacity: 0.2
         },
-        icon: 'fas fa-crosshairs',  // Ikona przycisku (tu użyto ikony z Font Awesome)
-        iconLoading: 'fas fa-spinner fa-spin',  // Ikona ładowania, gdy lokalizacja jest w trakcie uzyskiwania
-        setView: 'always',       // Zawsze ustaw widok na lokalizację użytkownika
-        keepCurrentZoomLevel: true,  // Zachowaj bieżący poziom przybliżenia
+        icon: 'fas fa-crosshairs',
+        iconLoading: 'fas fa-spinner fa-spin',
+        setView: 'always',
+        keepCurrentZoomLevel: true,
         strings: {
-            title: "Pokaż moją lokalizację"  // Tekst wyświetlany po najechaniu na przycisk
+            title: "Pokaż moją lokalizację"
         },
         locateOptions: {
-            enableHighAccuracy: true  // Włącz dokładność GPS
+            enableHighAccuracy: true
         }
     }).addTo(map);
+
+    // Dane stacji rowerowych w formie GeoJSON
+    var bikeStations = [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [23.160, 53.130]
+            },
+            "properties": {
+                "name": "Stacja rowerowa 01",
+                "description": "Przy parku Planty"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [23.182030949296035, 53.14565059810463]
+            },
+            "properties": {
+                "name": "Stacja rowerowa 02",
+                "description": "Przy barze Topolanka"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [23.159876, 53.132263]
+            },
+            "properties": {
+                "name": "Stacja rowerowa 03",
+                "description": "Przy fontannie"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [23.167112, 53.121386]
+            },
+            "properties": {
+                "name": "Stacja rowerowa 04",
+                "description": "Przy ZOO"
+            }
+        },
+        // Dodaj więcej stacji rowerowych według potrzeb
+
+    ];
+
+    // Dodaj warstwę stacji rowerowych do mapy
+    var bikeStationLayer = L.geoJSON(bikeStations, {
+        pointToLayer: function (feature, latlng) {
+            var marker = L.marker(latlng);
+            marker.bindPopup('<b>' + feature.properties.name + '</b><br>' + feature.properties.description);
+            return marker;
+        }
+    }).addTo(map);
+
 </script>
 <script>
     function logout() {

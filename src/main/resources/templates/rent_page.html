@@ -45,9 +45,15 @@
         </button>
         <a href="/main_page_citybikerent">Strona główna</a>
         <a href="/offer">Oferta</a>
+        <span th:if="${loggedInUser}">
+            <a href="/wallet">Portfel</a>
+        </span>
         <a href="/price_list">Cennik</a>
         <a href="/contact">Kontakt</a>
         <a href="/rent">Rezerwacje</a>
+        <span th:if="${loggedInUser}">
+            <a href="/my_rents">Moje rezerwacje</a>
+        </span>
         <a href="/regulations">Regulamin</a>
         <a href="/about_us">O nas</a>
     </nav>
@@ -79,7 +85,7 @@
                 <!-- Dodanie warunku dla przycisku "Zarezerwuj" -->
                 <td th:if="${bike.available}">
                     <!-- Dodanie warunku, aby przycisk był widoczny tylko dla zalogowanego użytkownika -->
-                    <button th:text="Zarezerwuj" th:if="${loggedInUser}" th:onclick="'redirectToRentPage(' + ${bike.id} + ')'" />
+                    <button th:text="Zarezerwuj" th:if="${loggedInUser}" th:onclick="'redirectToFinalizeTransactionPage(' + ${bike.id} + ')'" />
                     <span th:unless="${loggedInUser}">Zaloguj się, aby zarezerwować</span>
                 </td>
                 <td th:unless="${bike.available}">Rower nie jest dostępny</td>
@@ -88,8 +94,9 @@
         </tbody>
     </table>
 </div>
-
-
+<div th:if="${errorMessage}" class="alert alert-danger">
+    <p th:text="${errorMessage}"></p>
+</div>
 
 
 
@@ -110,8 +117,8 @@
         window.location.href = "/register";
     }
 
-    function redirectToRentPage(bikeId) {
-        window.location.href = "/my_rents_page?bikeId=" + bikeId;
+    function redirectToFinalizeTransactionPage(bikeId) {
+        window.location.href = "/finalize_transaction?bikeId=" + bikeId;
     }
 
 </script>

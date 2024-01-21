@@ -52,5 +52,10 @@ public class UserService {
         userRepository.save(newUser);
     }
 
-
+    public void saveBikeNumberToUser(User user, Long bikeNumber) {
+        // Ustaw numer roweru dla użytkownika
+        user.setCurrentRentalNumber(bikeNumber);
+        // Zapisz zmiany w bazie danych
+        userRepository.save(user);
+    }
 }

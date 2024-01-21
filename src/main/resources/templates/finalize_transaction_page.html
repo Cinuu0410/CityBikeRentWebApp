@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wypożyczalnia rowerów miejskich</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/finalize_transaction.css}">
+</head>
+
+<body>
+
+<header>
+  <div class="top-bar">
+    <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i> Menu
+    </button>
+    <h1>
+      <span th:if="${loggedInUser}" th:text="${'Witaj, ' + loggedInUser.firstName + ' ' + loggedInUser.lastName + '!'}"></span>
+    </h1>
+    <div class="auth-buttons">
+      <!-- Sprawdź, czy użytkownik jest zalogowany i wyświetl odpowiedni przycisk -->
+      <span th:if="${loggedInUser}">
+                <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj</button>
+            </span>
+      <span th:unless="${loggedInUser}">
+                <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Rejestracja</button>
+                <span class="spacing"></span>
+                <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Logowanie</button>
+            </span>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar-menu">
+  <div class="toolbar">
+    <div class="toolbar-top"></div>
+  </div>
+
+  <nav class="side-menu">
+    <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+      <i class="fas fa-times"></i> Zamknij
+    </button>
+    <a href="/main_page_citybikerent">Strona główna</a>
+    <a href="/offer">Oferta</a>
+    <span th:if="${loggedInUser}">
+            <a href="/wallet">Portfel</a>
+        </span>
+    <a href="/price_list">Cennik</a>
+    <a href="/contact">Kontakt</a>
+    <a href="/rent">Rezerwacje</a>
+    <span th:if="${loggedInUser}">
+            <a href="/my_rents">Moje rezerwacje</a>
+        </span>
+    <a href="/regulations">Regulamin</a>
+    <a href="/about_us">O nas</a>
+  </nav>
+</div>
+
+<div class="toolbar-login">
+  <div class="toolbar">
+    <div class="toolbar-top"></div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Informacje o rowerze</h2>
+      <!-- Dodaj tutaj informacje o wybranym rowerze, na przykład numer, marka itp. -->
+      <p>Numer roweru: <span th:text="${selectedBike.number}"></span></p>
+      <p>Marka: <span th:text="${selectedBike.brand}"></span></p>
+      <!-- Dodaj więcej informacji według potrzeb -->
+
+      <!-- Formularz finalizacji rezerwacji -->
+      <form th:if="${loggedInUser}" action="/finalizeReservation" method="post">
+        <input type="hidden" name="bikeId" th:value="${selectedBike.id}">
+        <button type="submit" class="btn btn-success">Finalizuj rezerwację</button>
+      </form>
+      <span th:unless="${loggedInUser}">Zaloguj się, aby zarezerwować</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<footer>
+  <p>2024 City Bike Rent &copy;</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    var sideMenu = document.querySelector('.side-menu');
+    sideMenu.classList.toggle('open');
+  }
+
+  function redirectToLogin() {
+    window.location.href = "/login";
+  }
+  function redirectToRegister() {
+    window.location.href = "/register";
+  }
+
+</script>
+<script>
+  function logout() {
+    // W tym miejscu możesz wykonać operacje związane z wylogowywaniem,
+    // np. zakończenie sesji, usuwanie atrybutu 'loggedInUser' itp.
+
+    // Następnie przekieruj użytkownika na stronę wylogowania
+    window.location.href = "/logout";  // Zakładając, że masz endpoint '/logout' do obsługi wylogowywania
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

@@ -36,4 +36,10 @@ public class BikeServiceImpl implements BikeService {
         bikeRepository.save(bike);
     }
 
+    @Override
+    public Bike getBikeByNumber(Long number) {
+        return bikeRepository.findByNumber(number).orElse(null);
+    }
+
+
 }

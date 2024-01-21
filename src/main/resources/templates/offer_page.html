@@ -42,9 +42,15 @@
         </button>
         <a href="/main_page_citybikerent">Strona główna</a>
         <a href="/offer">Oferta</a>
+        <span th:if="${loggedInUser}">
+            <a href="/wallet">Portfel</a>
+        </span>
         <a href="/price_list">Cennik</a>
         <a href="/contact">Kontakt</a>
         <a href="/rent">Rezerwacje</a>
+        <span th:if="${loggedInUser}">
+            <a href="/my_rents">Moje rezerwacje</a>
+        </span>
         <a href="/regulations">Regulamin</a>
         <a href="/about_us">O nas</a>
     </nav>

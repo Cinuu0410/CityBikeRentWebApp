@@ -11,18 +11,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
-  <style>
-    #map {
-      height: 400px;
-      width: 100%;
-    }
-
-    .carousel-item img {
-      width: 100%;
-      height: 500px; /* Dostosuj tę wartość do preferowanego rozmiaru */
-      object-fit: cover; /* Zapewnia zachowanie proporcji zdjęcia */
-    }
-  </style>
 </head>
 
 <body>
@@ -68,6 +56,9 @@
     <a href="/price_list">Cennik</a>
     <a href="/contact">Kontakt</a>
     <a href="/rent">Rezerwacje</a>
+    <span th:if="${loggedInUser}">
+            <a href="/my_rents">Moje rezerwacje</a>
+        </span>
     <a href="/regulations">Regulamin</a>
     <a href="/about_us">O nas</a>
   </nav>
@@ -82,6 +73,7 @@
 <div class="photoBelowHeader">
   <img th:src="@{/photos/rental1.png}" alt="rowery" />
 </div>
+
 <!-- Dodana sekcja portfela -->
 <section class="wallet-section">
   <div class="wallet-container">
@@ -105,13 +97,13 @@
   <p>2024 City Bike Rent &copy;</p>
 </footer>
 
-<!--mapa-->
 
 <script>
   function logout() {
     window.location.href = "/logout";
   }
 </script>
+
 <script>
   function toggleMenu() {
     var sideMenu = document.querySelector('.side-menu');

@@ -3,11 +3,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.uwb.f4group.citybikerent.Service.BikeService;
+import pl.uwb.f4group.citybikerent.Service.UserService;
 import pl.uwb.f4group.citybikerent.model.User;
 import pl.uwb.f4group.citybikerent.model.Bike;
 
@@ -18,9 +17,11 @@ import java.util.List;
 @Slf4j
 public class BikeRentController {
     private final BikeService bikeService;
+    private final UserService userService;
 
-    public BikeRentController(BikeService bikeService) {
+    public BikeRentController(BikeService bikeService, UserService userService) {
         this.bikeService = bikeService;
+        this.userService = userService;
     }
 
 
@@ -124,7 +125,7 @@ public class BikeRentController {
         }
         return "about_us_page";
     }
-    @GetMapping("/my_rents_page")
+    @GetMapping("/finalize_transaction")
     public String rentPage(@RequestParam Long bikeId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         // Sprawdź, czy użytkownik jest zalogowany
         if (session.getAttribute("loggedInUser") != null) {
@@ -137,19 +138,27 @@ public class BikeRentController {
             Bike selectedBike = bikeService.getBikeById(bikeId);
             model.addAttribute("selectedBike", selectedBike);
 
-            return "my_rents_page";
+            return "finalize_transaction_page";
         } else {
             // Użytkownik nie jest zalogowany, przekieruj na stronę logowania
             redirectAttributes.addFlashAttribute("message", "Zaloguj się, aby zarezerwować.");
             return "redirect:/login";
         }
     }
+
+
     @PostMapping("/finalizeReservation")
     public String finalizeReservation(@RequestParam Long bikeId, HttpSession session, RedirectAttributes redirectAttributes) {
         // Sprawdź, czy użytkownik jest zalogowany
         if (session.getAttribute("loggedInUser") != null) {
             // Pobierz informacje o zalogowanym użytkowniku
             User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+            // Sprawdź, czy użytkownik już ma wypożyczony rower
+            if (loggedInUser.getCurrentRentalNumber() != null) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Możesz wypożyczyć tylko jeden rower w tym samym czasie.");
+                return "redirect:/rent";
+            }
 
             // Pobierz informacje o wybranym rowerze na podstawie bikeId
             Bike selectedBike = bikeService.getBikeById(bikeId);
@@ -159,6 +168,9 @@ public class BikeRentController {
                 // Zmiana statusu rezerwacji w bazie danych (ustawienie na niedostępny)
                 selectedBike.setAvailable(false);
                 bikeService.saveBike(selectedBike);
+
+                // Zapisz numer roweru do danego użytkownika
+                userService.saveBikeNumberToUser(loggedInUser, selectedBike.getNumber());
 
                 // Tutaj możesz dodać dodatkowe operacje związane z finalizacją rezerwacji
 
@@ -171,6 +183,31 @@ public class BikeRentController {
         }
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/my_rents")
+    public String myRentsPage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        // Sprawdź, czy użytkownik jest zalogowany
+        if (session.getAttribute("loggedInUser") != null) {
+            // Pobierz informacje o zalogowanym użytkowniku
+            User loggedInUser = (User) session.getAttribute("loggedInUser");
+            // Dodaj informacje o zalogowanym użytkowniku do modelu
+            model.addAttribute("loggedInUser", loggedInUser);
+
+            // Pobierz informacje o aktualnym wypożyczeniu użytkownika
+            Long currentRentalNumber = loggedInUser.getCurrentRentalNumber();
+            if (currentRentalNumber != null) {
+                // Pobierz informacje o rowerze na podstawie numeru wypożyczenia
+                Bike rentedBike = bikeService.getBikeByNumber(currentRentalNumber);
+                model.addAttribute("rentedBike", rentedBike);
+            }
+
+            return "my_rents_page";
+        } else {
+            // Użytkownik nie jest zalogowany, przekieruj na stronę logowania
+            redirectAttributes.addFlashAttribute("message", "Zaloguj się, aby zobaczyć swoje wypożyczenia.");
+            return "redirect:/login";
+        }
     }
 
 

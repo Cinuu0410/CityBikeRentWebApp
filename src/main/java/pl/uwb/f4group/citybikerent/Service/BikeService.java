@@ -13,4 +13,6 @@ public interface BikeService {
     Bike getBikeById(Long bikeId);
 
     void saveBike(Bike bike);
+
+    Bike getBikeByNumber(Long currentRentalNumber);
 }
