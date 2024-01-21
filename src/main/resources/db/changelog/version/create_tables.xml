@@ -30,6 +30,9 @@
             <column name="current_rental_number" type="INTEGER">
                 <constraints nullable="true" unique="true"/>
             </column>
+            <column name="wallet" type="DECIMAL(10,2)">
+                <constraints nullable="true" unique="true"/>
+            </column>
         </createTable>
 
         <createTable tableName="bike">

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.uwb.f4group.citybikerent.Service.BikeService;
 import pl.uwb.f4group.citybikerent.Service.UserService;
+import pl.uwb.f4group.citybikerent.Service.WalletService;
 import pl.uwb.f4group.citybikerent.model.User;
 import pl.uwb.f4group.citybikerent.model.Bike;
 
@@ -18,31 +19,38 @@ import java.util.List;
 public class BikeRentController {
     private final BikeService bikeService;
     private final UserService userService;
+    private final WalletService walletService;
 
-    public BikeRentController(BikeService bikeService, UserService userService) {
+    public BikeRentController(BikeService bikeService, UserService userService, WalletService walletService) {
         this.bikeService = bikeService;
         this.userService = userService;
+        this.walletService = walletService;
     }
 
 
     @GetMapping("/main_page_citybikerent")
     public String mainPage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-        if (session.getAttribute("loggedInUser") != null) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
-        }
-        BigDecimal walletBalance = (BigDecimal) session.getAttribute("walletBalance");
-        if (walletBalance == null) {
-            walletBalance = BigDecimal.ZERO;
-            session.setAttribute("walletBalance", walletBalance);
+
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
         }
 
-        // Przekaz informacje o saldzie do modelu
-        model.addAttribute("walletBalance", walletBalance);
         return "main_page_citybikerent";
     }
+
 
 
     @GetMapping("/login")
@@ -54,11 +62,22 @@ public class BikeRentController {
     @GetMapping("/offer")
     public String offerPage(Model model, HttpSession session) {
         // Sprawdź, czy istnieje atrybut sesji dla zalogowanego użytkownika
-        if (session.getAttribute("loggedInUser") != null) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
+
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
         }
 
         return "offer_page";
@@ -66,31 +85,66 @@ public class BikeRentController {
 
     @GetMapping("/price_list")
     public String priceListPage(Model model, HttpSession session){
-        if (session.getAttribute("loggedInUser") != null) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
+
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
         }
         return "price_list_page";
     }
 
     @GetMapping("/contact")
     public String contactPage(Model model, HttpSession session){
-        if (session.getAttribute("loggedInUser") != null) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
+
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
         }
         return "contact_page";
     }
 
     @GetMapping("/rent")
     public String rentPage(Model model, HttpSession session) {
-        if (session.getAttribute("loggedInUser") != null) {
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            // Pobierz informacje o zalogowanym użytkowniku
+
+            // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
+
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
         }
 
 //        // Pobierz listę dostępnych rowerów z serwisu
@@ -106,22 +160,44 @@ public class BikeRentController {
 
     @GetMapping("/regulations")
     public String regulationsPage(Model model, HttpSession session){
-        if (session.getAttribute("loggedInUser") != null) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
+
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
         }
         return "regulations_page";
     }
 
     @GetMapping("/about_us")
     public String aboutUsPage(Model model, HttpSession session){
-        if (session.getAttribute("loggedInUser") != null) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
+
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
         }
         return "about_us_page";
     }
@@ -150,10 +226,9 @@ public class BikeRentController {
     @PostMapping("/finalizeReservation")
     public String finalizeReservation(@RequestParam Long bikeId, HttpSession session, RedirectAttributes redirectAttributes) {
         // Sprawdź, czy użytkownik jest zalogowany
-        if (session.getAttribute("loggedInUser") != null) {
-            // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
 
+        if (loggedInUser != null) {
             // Sprawdź, czy użytkownik już ma wypożyczony rower
             if (loggedInUser.getCurrentRentalNumber() != null) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Możesz wypożyczyć tylko jeden rower w tym samym czasie.");
@@ -180,6 +255,7 @@ public class BikeRentController {
             }
         } else {
             redirectAttributes.addFlashAttribute("message", "Zaloguj się, aby zarezerwować.");
+            return "redirect:/login";
         }
 
         return "redirect:/login";
@@ -188,11 +264,21 @@ public class BikeRentController {
     @GetMapping("/my_rents")
     public String myRentsPage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         // Sprawdź, czy użytkownik jest zalogowany
-        if (session.getAttribute("loggedInUser") != null) {
-            // Pobierz informacje o zalogowanym użytkowniku
-            User loggedInUser = (User) session.getAttribute("loggedInUser");
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
+
+            // Pobierz informacje o saldzie użytkownika
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
 
             // Pobierz informacje o aktualnym wypożyczeniu użytkownika
             Long currentRentalNumber = loggedInUser.getCurrentRentalNumber();
@@ -210,8 +296,8 @@ public class BikeRentController {
         }
     }
 
-
-
 }
+
+
 
 

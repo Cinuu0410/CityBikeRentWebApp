@@ -21,6 +21,9 @@
             <span th:if="${loggedInUser}" th:text="${'Witaj, ' + loggedInUser.firstName + ' ' + loggedInUser.lastName + '!'}"></span>
         </h1>
         <div class="auth-buttons">
+            <div class="wallet-info">
+                Portfel: <span th:text="${walletBalance}"></span> PLN
+            </div>
             <!-- Sprawdź, czy użytkownik jest zalogowany i wyświetl odpowiedni przycisk -->
             <span th:if="${loggedInUser}">
                 <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj</button>

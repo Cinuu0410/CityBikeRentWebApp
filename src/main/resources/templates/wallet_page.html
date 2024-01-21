@@ -76,19 +76,18 @@
 
 <!-- Dodana sekcja portfela -->
 <section class="wallet-section">
-  <div class="wallet-container">
-    <div class="wallet-info">
-      <h2>Stan konta</h2>
-      <p>Portfel: <span th:text="${walletBalance}"></span> PLN</p>
+    <div class="wallet-container">
+        <div class="wallet-info">
+            Portfel: <span th:text="${walletBalance}"></span> PLN
+        </div>
+        <div class="wallet-recharge">
+            <h2>Doładuj portfel</h2>
+            <form th:action="@{/wallet/addFunds}" method="post">
+                <input type="text" name="amount" placeholder="Wprowadź kwotę:" required/>
+                <button type="submit">Doładuj</button>
+            </form>
+        </div>
     </div>
-    <div class="wallet-recharge">
-      <h2>Doładuj portfel</h2>
-      <form th:action="@{/wallet/addFunds}" method="post">
-        <input type="text" name="amount" placeholder="Wprowadź kwotę: " required/>
-        <button type="submit">Doładuj</button>
-      </form>
-    </div>
-  </div>
 </section>
 
 

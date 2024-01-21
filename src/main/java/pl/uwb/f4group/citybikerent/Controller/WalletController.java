@@ -20,26 +20,10 @@ public class WalletController {
         this.walletService = walletService;
     }
 
-
-
     @PostMapping("/wallet/addFunds")
     public String addFunds(@RequestParam("amount") BigDecimal amount, Model model, HttpSession session) {
-        // Pobierz aktualny stan portfela z sesji
-        BigDecimal currentBalance = (BigDecimal) session.getAttribute("walletBalance");
-
-        // Sprawdź, czy currentBalance nie jest nullem
-        if (currentBalance == null) {
-            // Jeśli jest nullem, ustaw na zero
-            currentBalance = BigDecimal.ZERO;
-        }
-
-        // Dodaj wprowadzoną kwotę do aktualnego salda
-        BigDecimal newBalance = currentBalance.add(amount);
-
-        // Zapisz nowe saldo w sesji
-        session.setAttribute("walletBalance", newBalance);
-
-        // Przekieruj użytkownika z powrotem do strony portfela
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        walletService.addToBalance(loggedInUser, amount);
         return "redirect:/wallet";
     }
     @GetMapping("/wallet")
@@ -49,15 +33,15 @@ public class WalletController {
             // Przekieruj na stronę logowania, jeśli użytkownik nie jest zalogowany
             return "redirect:/login";
         }
-        model.addAttribute("loggedInUser", loggedInUser);
-        BigDecimal walletBalance = (BigDecimal) session.getAttribute("walletBalance");
+
+        BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
         if (walletBalance == null) {
             walletBalance = BigDecimal.ZERO;
             session.setAttribute("walletBalance", walletBalance);
         }
-
         // Przekaz informacje o saldzie do modelu
         model.addAttribute("walletBalance", walletBalance);
+        model.addAttribute("loggedInUser", loggedInUser);
 
         // Wyrenderuj widok portfela
         return "wallet_page";

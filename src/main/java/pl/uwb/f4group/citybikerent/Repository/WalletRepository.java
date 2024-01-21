@@ -1,4 +1,4 @@
-package pl.uwb.f4group.citybikerent.Service;
+package pl.uwb.f4group.citybikerent.Repository;
 
 import pl.uwb.f4group.citybikerent.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

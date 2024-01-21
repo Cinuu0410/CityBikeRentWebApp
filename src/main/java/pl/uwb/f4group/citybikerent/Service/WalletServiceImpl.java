@@ -2,38 +2,41 @@ package pl.uwb.f4group.citybikerent.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
-import pl.uwb.f4group.citybikerent.Service.WalletRepository;
+import pl.uwb.f4group.citybikerent.Repository.UserRepository;
+import pl.uwb.f4group.citybikerent.Repository.WalletRepository;
 import pl.uwb.f4group.citybikerent.model.User;
 import pl.uwb.f4group.citybikerent.model.Wallet;
+
+import java.math.BigDecimal;
 
 @Service
 public class WalletServiceImpl implements WalletService {
 
     private final WalletRepository walletRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public WalletServiceImpl(WalletRepository walletRepository) {
+    public WalletServiceImpl(WalletRepository walletRepository, UserRepository userRepository) {
         this.walletRepository = walletRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public BigDecimal getBalance(User user) {
-        Wallet wallet = walletRepository.findByUser(user);
-        return (wallet != null) ? wallet.getBalance() : BigDecimal.ZERO;
+    public BigDecimal getBalance(Long userId) {
+        return userRepository.findWalletBalanceByUserId(userId);
     }
 
     @Override
     public void addToBalance(User user, BigDecimal amount) {
-        Wallet wallet = walletRepository.findByUser(user);
-        if (wallet == null) {
-            wallet = new Wallet();
-            wallet.setUser((pl.uwb.f4group.citybikerent.model.User) user);
-            wallet.setBalance(amount);
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser != null) {
+            // Upewnij się, że wallet nie jest nullem
+            existingUser.setWallet(existingUser.getWallet() != null ? existingUser.getWallet() : BigDecimal.ZERO);
+            existingUser.setWallet(existingUser.getWallet().add(amount));
+            userRepository.save(existingUser);
         } else {
-            wallet.setBalance(wallet.getBalance().add(amount));
+            throw new IllegalArgumentException("User not found.");
         }
-        walletRepository.save(wallet);
     }
 
     @Override
@@ -46,4 +49,6 @@ public class WalletServiceImpl implements WalletService {
             throw new IllegalArgumentException("Insufficient funds in the wallet.");
         }
     }
+
+
 }
