@@ -19,14 +19,20 @@ public class LoginController {
                         RedirectAttributes redirectAttributes, HttpSession session) {
         if (userService.authenticate(username, password)) {
             User loggedInUser = userService.getUserByUsername(username);
-            // Zapisz informacje o zalogowanym użytkowniku w sesji
+            Long userId = Long.valueOf(loggedInUser.getId());
+
+            // Pobierz rolę użytkownika na podstawie ID
+            String loggedRole = userService.getRole(userId);
+            System.out.println(loggedRole);
+            // Zapisz informacje o zalogowanym użytkowniku i roli w sesji
             session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
 
             redirectAttributes.addFlashAttribute("successMessage", "Zalogowano pomyślnie");
-            return "redirect:/main_page_citybikerent";  // Przekierowanie na stronę główną
+            return "redirect:/main_page_citybikerent";
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Błąd logowania");
-            return "redirect:/login";  // Przekierowanie z powrotem do formularza logowania
+            return "redirect:/login";
         }
     }
     @GetMapping("/logout")

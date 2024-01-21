@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wypożyczalnia rowerów miejskich</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/rent_page.css}">
+</head>
+
+<body>
+
+<header>
+    <div class="top-bar">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        <h1>
+            <span th:if="${loggedInUser}" th:text="${'Witaj, ' + loggedInUser.firstName + ' ' + loggedInUser.lastName + '!'}"></span>
+        </h1>
+        <div class="auth-buttons">
+            <!-- Sprawdź, czy użytkownik jest zalogowany i wyświetl odpowiedni przycisk -->
+            <span th:if="${loggedInUser}">
+                <div class="wallet-info">
+                    Portfel: <span th:text="${walletBalance}"></span> PLN
+                </div>
+                <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj</button>
+            </span>
+            <span th:unless="${loggedInUser}">
+                <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Rejestracja</button>
+                <span class="spacing"></span>
+                <button type="button" class="btn btn-secondary login-button" onclick="redirectToLogin()">Logowanie</button>
+            </span>
+        </div>
+    </div>
+</header>
+
+<div class="toolbar-menu">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+
+    <nav class="side-menu">
+        <button type="button" class="btn btn-secondary menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-times"></i> Zamknij
+        </button>
+        <a href="/main_page_citybikerent">Strona główna</a>
+        <a href="/offer">Oferta</a>
+        <span th:if="${loggedInUser}">
+            <a href="/wallet">Portfel</a>
+        </span>
+        <a href="/price_list">Cennik</a>
+        <a href="/contact">Kontakt</a>
+        <a href="/rent">Rezerwacje</a>
+        <span th:if="${loggedInUser}">
+            <a href="/my_rents">Moje rezerwacje</a>
+        </span>
+        <a href="/regulations">Regulamin</a>
+        <a href="/about_us">O nas</a>
+    </nav>
+</div>
+
+<div class="toolbar-login">
+    <div class="toolbar">
+        <div class="toolbar-top"></div>
+    </div>
+</div>
+
+<div class="bikesList">
+    <table>
+        <thead>
+        <tr>
+            <th>Numer roweru</th>
+            <th>Marka</th>
+            <th>Dostępność</th>
+            <th>Opcje</th> <!-- Nowa kolumna dla przycisku "Zarezerwuj" -->
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="bike : ${getAllBikes}">
+            <tr>
+                <td th:text="${bike.number}">Numer roweru</td>
+                <td th:text="${bike.brand}">Marka</td>
+                <td th:text="${bike.available ? 'Dostępny' : 'Niedostępny'}">Dostępność</td>
+                <td>
+                    <button class="btn btn-primary">Edytuj</button>
+                    <form th:action="@{'/deleteBike/' + ${bike.id}}" method="post" style="display: inline;">
+                        <button class="btn btn-danger" type="submit">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+<div th:if="${errorMessage}" class="alert alert-danger">
+    <p th:text="${errorMessage}"></p>
+</div>
+<div class="add-bike-form">
+    <h3>Dodaj Rower</h3>
+    <!-- Zmień atrybut action na Twój endpoint backendowy do dodawania roweru -->
+    <form action="/addBike" method="post">
+        <div class="form-group">
+            <label for="bikeNumber">Numer roweru:</label>
+            <input type="text" id="bikeNumber" name="bikeNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="bikeBrand">Marka roweru:</label>
+            <input type="text" id="bikeBrand" name="bikeBrand" required>
+        </div>
+        <div class="form-group">
+            <label for="bikeAvailable">Dostępny:</label>
+            <select id="bikeAvailable" name="bikeAvailable" required>
+                <option value="true">Tak</option>
+                <option value="false">Nie</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Dodaj Rower</button>
+    </form>
+</div>
+</div>
+
+
+
+<footer>
+    <p>2024 City Bike Rent &copy;</p>
+</footer>
+
+<script>
+    function toggleMenu() {
+        var sideMenu = document.querySelector('.side-menu');
+        sideMenu.classList.toggle('open');
+    }
+
+    function redirectToLogin() {
+        window.location.href = "/login";
+    }
+    function redirectToRegister() {
+        window.location.href = "/register";
+    }
+
+    function redirectToFinalizeTransactionPage(bikeId) {
+        window.location.href = "/finalize_transaction?bikeId=" + bikeId;
+    }
+
+</script>
+<script>
+    function logout() {
+        // W tym miejscu możesz wykonać operacje związane z wylogowywaniem,
+        // np. zakończenie sesji, usuwanie atrybutu 'loggedInUser' itp.
+
+        // Następnie przekieruj użytkownika na stronę wylogowania
+        window.location.href = "/logout";  // Zakładając, że masz endpoint '/logout' do obsługi wylogowywania
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

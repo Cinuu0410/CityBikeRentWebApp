@@ -4,8 +4,9 @@ import lombok.Data;
 
 
 public enum UserRole {
-    USER("User"),
-    ADMIN("Admin"),
+    USER("USER"),
+    SUPER_USER("SUPER_USER"),
+    SERVICE_TECHNICIAN("SERVICE"),
     ;
     private final String roleName;
     UserRole(String roleName) {

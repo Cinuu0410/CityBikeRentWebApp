@@ -13,5 +13,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     // Tworzymy zapytanie, aby pobrać saldo portfela użytkownika na podstawie jego identyfikatora
     @Query("SELECT u.wallet FROM User u WHERE u.Id = :userId")
     BigDecimal findWalletBalanceByUserId(@Param("userId") Long userId);
+    @Query("SELECT u.role FROM User u WHERE u.Id = :userId")
+    String findRole(@Param("userId") Long userId);
 
 }

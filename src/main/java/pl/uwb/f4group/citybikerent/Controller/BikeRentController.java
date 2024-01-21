@@ -1,10 +1,12 @@
 package pl.uwb.f4group.citybikerent.Controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.uwb.f4group.citybikerent.Enum.UserRole;
 import pl.uwb.f4group.citybikerent.Service.BikeService;
 import pl.uwb.f4group.citybikerent.Service.UserService;
 import pl.uwb.f4group.citybikerent.Service.WalletService;
@@ -13,6 +15,8 @@ import pl.uwb.f4group.citybikerent.model.Bike;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import static pl.uwb.f4group.citybikerent.Enum.UserRole.*;
 
 @Controller
 @Slf4j
@@ -34,10 +38,15 @@ public class BikeRentController {
 
         if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-
+            Long userId = Long.valueOf(loggedInUser.getId());
+            String loggedRole = userService.getRole(userId);
+            System.out.println(loggedRole);
+            // Zapisz informacje o zalogowanym użytkowniku i roli w sesji
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
-
+            model.addAttribute("role", loggedRole);
             BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
@@ -126,7 +135,45 @@ public class BikeRentController {
         }
         return "contact_page";
     }
+    @GetMapping("/panel")
+    public String panelPage(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
 
+        if (loggedInUser != null) {
+            // Pobierz informacje o zalogowanym użytkowniku
+            Long userId = Long.valueOf(loggedInUser.getId());
+            String loggedRole = userService.getRole(userId);
+
+            if (!loggedRole.equals(UserRole.SUPER_USER.getRoleName()) ) {
+                // Użytkownik nie ma roli SUPER_USER, przekieruj na stronę główną
+                return "redirect:/main_page_citybikerent";
+            }
+            // Zapisz informacje o zalogowanym użytkowniku i roli w sesji
+            session.setAttribute("loggedInUser", loggedInUser);
+            session.setAttribute("role", loggedRole);
+            // Dodaj informacje o zalogowanym użytkowniku do modelu
+            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("role", loggedRole);
+            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            if (walletBalance == null) {
+                walletBalance = BigDecimal.ZERO;
+                session.setAttribute("walletBalance", walletBalance);
+            }
+
+            // Przekaz informacje o saldzie do modelu
+            model.addAttribute("walletBalance", walletBalance);
+            List<Bike> availableBikes = bikeService.getAvailableBikes();
+            model.addAttribute("availableBikes", availableBikes);
+
+            List<Bike> getAllBikes = bikeService.getAllBikes();
+            model.addAttribute("getAllBikes", getAllBikes);
+        }
+        else {
+            return "redirect:/login";
+            }
+
+        return "panel";
+    }
     @GetMapping("/rent")
     public String rentPage(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -295,8 +342,27 @@ public class BikeRentController {
             return "redirect:/login";
         }
     }
+        @PostMapping("/addBike")
+        public String addBike(@RequestParam("bikeNumber") String bikeNumber,
+                              @RequestParam("bikeBrand") String bikeBrand,
+                              @RequestParam("bikeAvailable") boolean bikeAvailable) {
+            Bike newBike = new Bike();
+            newBike.setNumber(Long.valueOf(bikeNumber));
+            newBike.setBrand(bikeBrand);
+            newBike.setAvailable(bikeAvailable);
 
-}
+            bikeService.saveBike(newBike);
+
+            return "redirect:/panel"; // Lub inna strona docelowa po dodaniu roweru
+        }
+    @PostMapping("/deleteBike/{bikeId}")
+    public String deleteBike(@PathVariable Long bikeId) {
+        bikeService.deleteBike(bikeId);
+
+        return "redirect:/panel"; // Lub inna strona docelowa po usunięciu roweru
+    }
+
+    }
 
 
 

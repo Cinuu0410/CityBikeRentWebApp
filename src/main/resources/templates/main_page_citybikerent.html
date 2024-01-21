@@ -41,7 +41,11 @@
                 <div class="wallet-info">
                     Portfel: <span th:text="${walletBalance}"></span> PLN
                 </div>
+                <span th:if="${role eq 'SUPER_USER'}">
+                    <button type="button" class="btn btn-secondary" onclick="panel()">Panel</button>
+                </span>
                 <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj</button>
+
             </span>
             <span th:unless="${loggedInUser}">
                 <button type="button" class="btn btn-secondary register-button" onclick="redirectToRegister()">Rejestracja</button>
@@ -244,6 +248,9 @@
 
         // Następnie przekieruj użytkownika na stronę wylogowania
         window.location.href = "/logout";  // Zakładając, że masz endpoint '/logout' do obsługi wylogowywania
+    }
+    function panel(){
+        window.location.href = "/panel";
     }
 </script>
 <script>

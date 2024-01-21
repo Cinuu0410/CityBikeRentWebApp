@@ -35,7 +35,14 @@ public class BikeServiceImpl implements BikeService {
     public void saveBike(Bike bike) {
         bikeRepository.save(bike);
     }
-
+    @Override
+    public void deleteBike(Long bikeId) {
+        bikeRepository.deleteById(bikeId);
+    }
+    public void editBike(Bike editedBike) {
+        // Tutaj możesz dodać logikę walidacji lub inne operacje związane z edycją roweru
+        bikeRepository.save(editedBike);
+    }
     @Override
     public Bike getBikeByNumber(Long number) {
         return bikeRepository.findByNumber(number).orElse(null);

@@ -59,4 +59,8 @@ public class UserService {
         // Zapisz zmiany w bazie danych
         userRepository.save(user);
     }
+    public String getRole(Long userId){
+        return userRepository.findRole(userId);
+    }
+
 }

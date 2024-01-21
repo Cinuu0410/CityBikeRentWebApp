@@ -1,6 +1,6 @@
 package pl.uwb.f4group.citybikerent.Service;
 
-public class LoginService {
+public class LoginRequest {
     private String username;
     private String password;
 
