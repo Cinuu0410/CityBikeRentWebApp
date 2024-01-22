@@ -31,7 +31,7 @@
                 <constraints nullable="true" unique="true"/>
             </column>
             <column name="wallet" type="DECIMAL(10,2)">
-                <constraints nullable="true" unique="true"/>
+                <constraints nullable="false"/>
             </column>
         </createTable>
 
