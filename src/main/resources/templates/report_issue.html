@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zgłoś problem</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Zgłoś problem</h2>
+    <form id="reportIssueForm">
+        <div class="form-group">
+            <label for="bikeNumber">Numer roweru:</label>
+            <input type="text" class="form-control" id="bikeNumber" readonly>
+        </div>
+        <div class="form-group">
+            <label for="issueDescription">Opis problemu:</label>
+            <textarea class="form-control" id="issueDescription" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Wyślij</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var bikeNumber = urlParams.get('bikeNumber');
+        document.getElementById('bikeNumber').value = bikeNumber;
+
+        document.getElementById('reportIssueForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            var issueDescription = document.getElementById('issueDescription').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/submit_issue", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        alert("Problem został zgłoszony.");
+                        window.close();
+                    } else {
+                        alert("Wystąpił błąd podczas zgłaszania problemu. Spróbuj ponownie później.");
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify({
+                bikeNumber: bikeNumber,
+                issueDescription: issueDescription
+            }));
+        };
+    });
+</script>
+</body>
+</html>
