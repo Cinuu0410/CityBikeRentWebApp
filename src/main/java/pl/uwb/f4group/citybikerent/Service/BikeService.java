@@ -9,14 +9,15 @@ public interface BikeService {
 
     List<Bike> getAllBikes();
 
-
     Bike getBikeById(Long bikeId);
 
     void saveBike(Bike bike);
-    void deleteBike(Long bikeId);
 
+    void deleteBike(Long bikeId);
 
     Bike getBikeByNumber(Long currentRentalNumber);
 
     void editBike(Bike editedBike);
+
+    boolean returnBike(Long userId, Long bikeNumber);
 }

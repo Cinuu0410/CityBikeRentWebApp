@@ -74,11 +74,10 @@
   <img th:src="@{/photos/rental1.png}" alt="rowery" />
 </div>
 
-<!-- Dodana sekcja portfela -->
 <section class="wallet-section">
     <div class="wallet-container">
         <div class="wallet-info">
-            Portfel: <span th:text="${walletBalance}"></span> PLN
+            Aktualny stan portfela: <span th:text="${walletBalance}"></span> PLN
         </div>
         <div class="wallet-recharge">
             <h2>Doładuj portfel</h2>
@@ -90,18 +89,9 @@
     </div>
 </section>
 
-
-
 <footer>
   <p>2024 City Bike Rent &copy;</p>
 </footer>
-
-
-<script>
-  function logout() {
-    window.location.href = "/logout";
-  }
-</script>
 
 <script>
   function toggleMenu() {
@@ -115,6 +105,9 @@
 
   function redirectToRegister() {
     window.location.href = "/register";
+  }
+  function logout() {
+      window.location.href = "/logout";
   }
 </script>
 

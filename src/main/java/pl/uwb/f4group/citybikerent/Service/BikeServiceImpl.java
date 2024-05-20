@@ -3,6 +3,7 @@ package pl.uwb.f4group.citybikerent.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 import pl.uwb.f4group.citybikerent.Repository.BikeRepository;
 import pl.uwb.f4group.citybikerent.model.Bike;
@@ -43,6 +44,22 @@ public class BikeServiceImpl implements BikeService {
         // Tutaj możesz dodać logikę walidacji lub inne operacje związane z edycją roweru
         bikeRepository.save(editedBike);
     }
+
+    @Override
+    public boolean returnBike(Long userId, Long bikeNumber) {
+        Optional<Bike> bikeOptional = bikeRepository.findByNumber(bikeNumber);
+        if (bikeOptional.isPresent()) {
+            Bike bike = bikeOptional.get();
+            if (!bike.isAvailable()) {
+                bike.setAvailable(true);
+                bikeRepository.save(bike);
+                // Dodatkowa logika, np. aktualizacja stanu użytkownika, usunięcie wypożyczenia, itp.
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public Bike getBikeByNumber(Long number) {
         return bikeRepository.findByNumber(number).orElse(null);

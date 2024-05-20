@@ -1,12 +1,14 @@
 package pl.uwb.f4group.citybikerent.Controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.uwb.f4group.citybikerent.Enum.UserRole;
+import pl.uwb.f4group.citybikerent.Repository.UserRepository;
 import pl.uwb.f4group.citybikerent.Service.BikeService;
 import pl.uwb.f4group.citybikerent.Service.UserService;
 import pl.uwb.f4group.citybikerent.Service.WalletService;
@@ -14,7 +16,10 @@ import pl.uwb.f4group.citybikerent.model.User;
 import pl.uwb.f4group.citybikerent.model.Bike;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static pl.uwb.f4group.citybikerent.Enum.UserRole.*;
 
@@ -24,11 +29,13 @@ public class BikeRentController {
     private final BikeService bikeService;
     private final UserService userService;
     private final WalletService walletService;
+    private final UserRepository userRepository;
 
-    public BikeRentController(BikeService bikeService, UserService userService, WalletService walletService) {
+    public BikeRentController(BikeService bikeService, UserService userService, WalletService walletService, UserRepository userRepository) {
         this.bikeService = bikeService;
         this.userService = userService;
         this.walletService = walletService;
+        this.userRepository = userRepository;
     }
 
 
@@ -38,7 +45,7 @@ public class BikeRentController {
 
         if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            Long userId = Long.valueOf(loggedInUser.getId());
+            Long userId = loggedInUser.getId();
             String loggedRole = userService.getRole(userId);
             System.out.println(loggedRole);
             // Zapisz informacje o zalogowanym użytkowniku i roli w sesji
@@ -47,7 +54,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
             model.addAttribute("role", loggedRole);
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -79,7 +86,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
 
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -102,7 +109,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
 
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -124,7 +131,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
 
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -141,7 +148,7 @@ public class BikeRentController {
 
         if (loggedInUser != null) {
             // Pobierz informacje o zalogowanym użytkowniku
-            Long userId = Long.valueOf(loggedInUser.getId());
+            Long userId = loggedInUser.getId();
             String loggedRole = userService.getRole(userId);
 
             if (!loggedRole.equals(UserRole.SUPER_USER.getRoleName()) ) {
@@ -154,7 +161,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
             model.addAttribute("role", loggedRole);
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -184,7 +191,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
 
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -215,7 +222,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
 
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -237,7 +244,7 @@ public class BikeRentController {
             // Dodaj informacje o zalogowanym użytkowniku do modelu
             model.addAttribute("loggedInUser", loggedInUser);
 
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -318,7 +325,7 @@ public class BikeRentController {
             model.addAttribute("loggedInUser", loggedInUser);
 
             // Pobierz informacje o saldzie użytkownika
-            BigDecimal walletBalance = walletService.getBalance(Long.valueOf(loggedInUser.getId()));
+            BigDecimal walletBalance = walletService.getBalance(loggedInUser.getId());
             if (walletBalance == null) {
                 walletBalance = BigDecimal.ZERO;
                 session.setAttribute("walletBalance", walletBalance);
@@ -342,6 +349,34 @@ public class BikeRentController {
             return "redirect:/login";
         }
     }
+
+    @PostMapping("/return_bike")
+    public ResponseEntity<Map<String, Object>> returnBike(@RequestBody Map<String, String> request, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            Long bikeNumber = Long.parseLong(request.get("bikeNumber"));
+            boolean result = bikeService.returnBike(loggedInUser.getId(), bikeNumber);
+
+            if (result) {
+                // Ustaw CurrentRentalNumber na null dla zalogowanego użytkownika
+                loggedInUser.setCurrentRentalNumber(null);
+                userRepository.save(loggedInUser); // Zakładając, że userService zawiera metodę saveUser()
+                return ResponseEntity.ok(Collections.singletonMap("success", true));
+            } else {
+                Map<String, Object> response = new HashMap<>();
+                response.put("success", false);
+                response.put("message", "Nie udało się zwrócić roweru.");
+                return ResponseEntity.ok(response);
+            }
+        } else {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "Użytkownik niezalogowany.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+    }
+
         @PostMapping("/addBike")
         public String addBike(@RequestParam("bikeNumber") String bikeNumber,
                               @RequestParam("bikeBrand") String bikeBrand,

@@ -94,15 +94,7 @@
 <footer>
     <p>2024 City Bike Rent &copy;</p>
 </footer>
-<script>
-    function logout() {
-        // W tym miejscu możesz wykonać operacje związane z wylogowywaniem,
-        // np. zakończenie sesji, usuwanie atrybutu 'loggedInUser' itp.
 
-        // Następnie przekieruj użytkownika na stronę wylogowania
-        window.location.href = "/logout";  // Zakładając, że masz endpoint '/logout' do obsługi wylogowywania
-    }
-</script>
 <script>
     function toggleMenu() {
         var sideMenu = document.querySelector('.side-menu');
@@ -115,7 +107,9 @@
     function redirectToRegister() {
         window.location.href = "/register";
     }
-
+    function logout() {
+        window.location.href = "/logout";
+    }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
