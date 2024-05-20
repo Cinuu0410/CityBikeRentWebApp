@@ -72,7 +72,7 @@
             <p>Marka: <span th:text="${rentedBike.brand}"></span></p>
             <div class="buttons">
                 <button type="button" id="returnBikeButton" class="btn btn-primary">Zwróć rower</button>
-                <button type="button" id="reportIssueButton" class="btn btn-danger">Zgłoś problem</button>
+                <button type="button" id="reportIssueButton" class="btn btn-danger" onclick="reportIssue()">Zgłoś problem</button>
             </div>
         </div>
         <div th:unless="${rentedBike}" class="no-rental">
@@ -135,9 +135,42 @@
     }
 
     function reportIssue() {
+        console.log("reportIssue function called");
+
         var bikeNumberElement = document.getElementById("bikeNumber");
         var bikeNumber = bikeNumberElement.textContent || bikeNumberElement.innerText;
-        window.open('/report_issue?bikeNumber=' + bikeNumber, '_blank');
+        console.log("Bike number:", bikeNumber);
+
+        var issueDescription = prompt("Podaj opis problemu:");
+        console.log("Issue description:", issueDescription);
+
+        if (issueDescription) {
+            console.log("Sending AJAX request to report issue");
+
+            fetch("/report_issue", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ bikeNumber: bikeNumber, issueDescription: issueDescription })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("AJAX request succeeded:", data);
+                    alert("Zgłoszenie zostało wysłane");
+                })
+                .catch(error => {
+                    console.error("AJAX request failed:", error);
+                    alert("Zgłoszenie zostało wysłane");
+                });
+        } else {
+            console.log("Issue description is empty, no request sent");
+        }
     }
 </script>
 

@@ -53,7 +53,5 @@
             <column name="brand" value="Hercules"/>
             <column name="available" value="false"/>
         </insert>
-
-
     </changeSet>
 </databaseChangeLog>

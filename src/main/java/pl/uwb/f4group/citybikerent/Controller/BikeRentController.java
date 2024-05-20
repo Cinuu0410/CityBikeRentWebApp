@@ -396,12 +396,12 @@ public class BikeRentController {
 
         return "redirect:/panel"; // Lub inna strona docelowa po usunięciu roweru
     }
-    @GetMapping("/report_issue")
-    public String reportIssue(@RequestParam("bikeNumber") String bikeNumber, Map<String, Object> model) {
-        model.put("bikeNumber", bikeNumber);
-        return "report_issue";
-    }
-    }
+//    @GetMapping("/report_issue")
+//    public String reportIssue(@RequestParam("bikeNumber") String bikeNumber, Map<String, Object> model) {
+//        model.put("bikeNumber", bikeNumber);
+//        return "report_issue";
+//    }
+}
 
 
 
