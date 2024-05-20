@@ -66,16 +66,20 @@
 </div>
 
 <div class="container mt-4" th:if="${loggedInUser}">
-    <h2>Aktualne wypożyczenie</h2>
-    <th:block th:if="${rentedBike}">
-        <p>Numer roweru: <span id="bikeNumber" th:text="${rentedBike.number}"></span></p>
-        <p>Marka: <span th:text="${rentedBike.brand}"></span></p>
-        <button type="button" id="returnBikeButton" class="btn btn-primary">Zwróć rower</button>
-        <button type="button" id="reportIssueButton" class="btn btn-danger">Zgłoś problem</button>
-    </th:block>
-    <th:block th:unless="${rentedBike}">
-        <p>Aktualnie nie posiadasz wypożyczonego roweru.</p>
-    </th:block>
+    <div class="rental-info">
+        <h2>Aktualne wypożyczenie</h2>
+        <div th:if="${rentedBike}" class="bike-details">
+            <p>Numer roweru: <span id="bikeNumber" th:text="${rentedBike.number}"></span></p>
+            <p>Marka: <span th:text="${rentedBike.brand}"></span></p>
+            <div class="buttons">
+                <button type="button" id="returnBikeButton" class="btn btn-primary">Zwróć rower</button>
+                <button type="button" id="reportIssueButton" class="btn btn-danger">Zgłoś problem</button>
+            </div>
+        </div>
+        <div th:unless="${rentedBike}" class="no-rental">
+            <p>Aktualnie nie posiadasz wypożyczonego roweru.</p>
+        </div>
+    </div>
 </div>
 <footer>
     <p>2024 City Bike Rent &copy;</p>

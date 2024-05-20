@@ -21,11 +21,10 @@
             <span th:if="${loggedInUser}" th:text="${'Witaj, ' + loggedInUser.firstName + ' ' + loggedInUser.lastName + '!'}"></span>
         </h1>
         <div class="auth-buttons">
-            <div class="wallet-info">
-                Portfel: <span th:text="${walletBalance}"></span> PLN
-            </div>
-            <!-- Sprawdź, czy użytkownik jest zalogowany i wyświetl odpowiedni przycisk -->
             <span th:if="${loggedInUser}">
+                <div class="wallet-info">
+                    Portfel: <span th:text="${walletBalance}"></span> PLN
+                </div>
                 <button type="button" class="btn btn-secondary logout-button" onclick="logout()">Wyloguj</button>
             </span>
             <span th:unless="${loggedInUser}">
@@ -68,6 +67,8 @@
     </div>
 </div>
 
+<section class="bgGray"></section>
+
 <section class="contact-section">
     <div class="contact-container">
         <h2>Kontakt</h2>
@@ -76,7 +77,8 @@
         <p>Lub telefonicznie pod numerem: +48 123 456 789</p>
     </div>
 </section>
-<section class ="bgGray"></section>
+
+<section class="bgGray"></section>
 
 <footer>
     <p>2024 City Bike Rent &copy;</p>
@@ -87,28 +89,18 @@
         var sideMenu = document.querySelector('.side-menu');
         sideMenu.classList.toggle('open');
     }
-
     function redirectToLogin() {
         window.location.href = "/login";
     }
     function redirectToRegister() {
         window.location.href = "/register";
     }
-
-</script>
-<script>
     function logout() {
-        // W tym miejscu możesz wykonać operacje związane z wylogowywaniem,
-        // np. zakończenie sesji, usuwanie atrybutu 'loggedInUser' itp.
-
-        // Następnie przekieruj użytkownika na stronę wylogowania
-        window.location.href = "/logout";  // Zakładając, że masz endpoint '/logout' do obsługi wylogowywania
+        window.location.href = "/logout";
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
 </body>
 </html>

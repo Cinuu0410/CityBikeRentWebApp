@@ -28,11 +28,13 @@ body {
 }
 
 .registration-container form {
-    margin-top: 20px;
+    margin: 0 auto; /* Automatyczne wyśrodkowanie formularza */
+    width: 300px; /* Ustawienie szerokości formularza */
 }
 
 .registration-container label {
-    color: #333;
+    width: 100%; /* Ustawienie szerokości etykiety na 100% */
+    text-align: center; /* Wyrównanie tekstu etykiety do lewej strony */
     display: block;
 }
 
